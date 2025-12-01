@@ -20,14 +20,15 @@ class Puzzle():
         self.zero_passes = 0
         print(f"Starting at {self.position} - Current count = {self.p1_solution}")
         for instruction in self.input_list:
+            direction = instruction[0]
             distance = int(instruction[1:])
-            if instruction[0] == "L":
-                distance *= -1
             
-            while distance > 99:
-                distance -= 100
-                self.zero_passes +=1
+            if distance > 99:
+                self.zero_passes += distance//100
+                distance = distance%100
                 
+            if direction == "L":                
+                distance = distance * -1
             self.last_position = self.position
             self.position += distance
             
